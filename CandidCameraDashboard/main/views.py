@@ -32,3 +32,10 @@ def download_timelapse(request):
     response['Content-Disposition'] = 'attachment; filename=timelapse.zip'
     return response
 
+
+def video(request):
+    video_path = '/home/georgia/codes/CCDashboard/CandidCameraDashboard/main/tmp_cache_files/timelapse/timelapse.avi'
+    context = {
+        'video_path': video_path
+    }
+    return render(request, template_name='main/video.html', context=context)
