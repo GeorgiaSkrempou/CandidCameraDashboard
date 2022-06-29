@@ -1,11 +1,13 @@
 import glob
 import os
+from pathlib import Path
 from zipfile import ZipFile
 
+import cv2
 from boto3 import session
 from dotenv import load_dotenv
 
-load_dotenv()  # a function that reads the .env file and stores those variables in os.env and makes them environment variables
+load_dotenv()
 
 ACCESS_ID = os.environ["ACCESS_ID"]
 SECRET_KEY = os.environ["SECRET_KEY"]
@@ -24,17 +26,32 @@ def download_file():
     my_photos = client.list_objects(Bucket='mononokeros')['Contents']
 
     for photo in my_photos:
-        client.download_file('mononokeros', f"{photo['Key']}", f"tmp_cache_files/{photo['Key']}")
+        client.download_file('mononokeros', f"{photo['Key']}",
+                             f"./main/tmp_cache_files/{photo['Key']}")
 
 
-def main():
-    directory = 'tmp_cache_files/picamera_photos'
-    with ZipFile('tmp_cache_files/picamera_photos.zip', 'w') as new_zip:
-        for file in glob.glob(f'{directory}/*jpeg'):
-            new_zip.write(filename=file)
+def zip_ze_file(folder_to_compress, path_to_archive, filetype):
+    with ZipFile(path_to_archive, 'w') as new_zip:
+        for file in folder_to_compress.rglob(filetype):
+            relative_path = file.relative_to(folder_to_compress)
+            new_zip.write(filename=file, arcname=relative_path)
 
 
-if __name__ == '__main__':
-    main()
+def timelapse():
+    img_array = []
 
-# download_file()
+    folder_to_images = Path('./main/tmp_cache_files/picamera_photos/')
+    folder_to_timelapse = Path('./main/tmp_cache_files/timelapse/')
+
+    for filename in sorted(glob.glob(f'{folder_to_images}/*jpeg')):
+        img = cv2.imread(filename)
+        height, width, layers = img.shape
+        size = (width, height)
+        img_array.append(img)
+
+    out = cv2.VideoWriter(f'{folder_to_timelapse}/timelapse.avi', cv2.VideoWriter_fourcc(*'DIVX'), 7, size)
+
+    for i in range(len(img_array)):
+        out.write(img_array[i])
+
+    out.release()
