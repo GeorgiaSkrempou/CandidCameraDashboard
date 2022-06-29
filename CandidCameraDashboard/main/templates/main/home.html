@@ -15,14 +15,16 @@
 			</div>
 		</div>
 		<div class="col mt-2">
-			<div class="card" style="width: 18rem;">
-				<img src="..." class="card-img-top" alt="...">
+			<div class="card dashboard-gif-card">
+				<img src="{{MEDIA_URL}}flower-timelapse.gif" class="card-img-top" alt="dandelion-timelapse" style="height: 248px">
 				<div class="card-body">
 					<h5 class="card-title">Timelapse video</h5>
 					<p class="card-text">Create and download a timelapse video from the photos.</p>
 				</div>
 				<div class="card-body">
-					<a href="{% url 'main:download_timelapse' %}" class="card-link">Timelapse</a>
+					<a href="{% url 'main:download_timelapse' %}" class="card-link">Download</a>
+
+					<a href="{% url 'main:download_timelapse' %}" class="card-link">View in browser</a>
 				</div>
 			</div>
 		</div>
