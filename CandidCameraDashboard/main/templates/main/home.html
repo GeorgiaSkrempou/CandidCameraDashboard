@@ -1,2 +1,32 @@
-HOME VIEW
-<a href="{% url 'main:download_photos' %}" class="button">Download files</a>
+{% extends 'main/base.html' %}
+
+{% block content %}
+	<div class="row">
+		<div class="col mt-2">
+			<div class="card" style="width: 18rem;">
+				<img src="{{ MEDIA_URL }}picamera.png" class="card-img-top" alt="picamera">
+				<div class="card-body">
+					<h5 class="card-title">Download photos</h5>
+					<p class="card-text">Download the files stored in Spaces in your computer</p>
+				</div>
+				<div class="card-body">
+					<a href="{% url 'main:download_photos' %}" class="card-link">Download</a>
+				</div>
+			</div>
+		</div>
+		<div class="col mt-2">
+			<div class="card" style="width: 18rem;">
+				<img src="..." class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title">Timelapse video</h5>
+					<p class="card-text">Create and download a timelapse video from the photos.</p>
+				</div>
+				<div class="card-body">
+					<a href="{% url 'main:download_timelapse' %}" class="card-link">Timelapse</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
