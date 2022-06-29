@@ -5,6 +5,7 @@ db.sqlite3
 .idea
 __pycache__
 *.pyc
+*timelapse.gif
 CandidCameraDashboard/main/tmp_cache_files
 !CandidCameraDashboard/main/tmp_cache_files/.gitkeep
 CandidCameraDashboard/main/tmp_cache_files/picamera_photos
