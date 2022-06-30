@@ -8,9 +8,5 @@ __pycache__
 *timelapse.gif
 CandidCameraDashboard/main/tmp_cache_files
 !CandidCameraDashboard/main/tmp_cache_files/.gitkeep
-CandidCameraDashboard/main/tmp_cache_files/picamera_photos
-!CandidCameraDashboard/main/tmp_cache_files/picamera_photos/.gitkeep
-CandidCameraDashboard/main/tmp_cache_files/timelapse
-!CandidCameraDashboard/main/tmp_cache_files/timelapse/.gitkeep
 CandidCameraDashboard/media/timelapse
-!CandidCameraDashboard/media/timelapse/.gitignore
+!CandidCameraDashboard/media/timelapse/.gitkeep
