@@ -2,8 +2,11 @@
 
 {% block content %}
 
-	<h1>Timelapse video</h1>
+	<div class="card" style="width: 30rem;">
+		<img src="{{ MEDIA_URL }}{{ filepath }}" class="card-img-top" alt="timelapse.gif">
+		<div class="card-body">
+			<p class="card-text">Plants do everything that animals do, but slowly.</p>
+		</div>
+	</div>
 
-	<img src="{{ MEDIA_URL }}{{ filepath }}" alt="">
-	
 {% endblock %}
