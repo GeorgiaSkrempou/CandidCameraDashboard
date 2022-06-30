@@ -7,3 +7,4 @@ __pycache__
 *.pyc
 CandidCameraDashboard/main/tmp_cache_files
 !CandidCameraDashboard/main/tmp_cache_files/.gitkeep
+CandidCameraDashboard/media/timelapse
