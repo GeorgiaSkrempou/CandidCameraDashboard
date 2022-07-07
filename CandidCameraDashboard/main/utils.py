@@ -1,10 +1,11 @@
 import glob
 import os
+import re
 from pathlib import Path
 from zipfile import ZipFile
-import imageio
 
 import cv2
+import imageio
 from boto3 import session
 from dotenv import load_dotenv
 
@@ -15,7 +16,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 SPACES_URL = "https://ams3.digitaloceanspaces.com"
 
 
-def download_file(now):
+def download_file(now, plant):
     # initiate session with spaces
     spaces_session = session.Session()
     client = spaces_session.client("s3",
@@ -27,8 +28,14 @@ def download_file(now):
     my_photos = client.list_objects(Bucket='mononokeros')['Contents']
 
     for photo in my_photos:
-        client.download_file('mononokeros', f"{photo['Key']}",
-                             f"./main/tmp_cache_files/{now}/{photo['Key']}")
+        if plant == "proud_boy":
+            if re.findall(r"image(.*)_", photo['Key']):
+                client.download_file('mononokeros', f"{photo['Key']}",
+                                     f"./main/tmp_cache_files/{now}/proud_boy/{photo['Key']}")
+        elif plant == "resurrected_boy":
+            if re.findall(r"resurrected_succulent(.*)_", photo['Key']):
+                client.download_file('mononokeros', f"{photo['Key']}",
+                                     f"./main/tmp_cache_files/{now}/resurrected_boy/{photo['Key']}")
 
 
 def zip_ze_file(folder_to_compress, path_to_archive, filetype):
@@ -38,11 +45,8 @@ def zip_ze_file(folder_to_compress, path_to_archive, filetype):
             new_zip.write(filename=file, arcname=relative_path)
 
 
-def timelapse(now):
+def timelapse(now, plant, folder_to_images, folder_to_timelapse):
     img_array = []
-
-    folder_to_images = Path(f'./main/tmp_cache_files/{now}/picamera_photos/')
-    folder_to_timelapse = Path(f'./main/tmp_cache_files/{now}/timelapse')
 
     for filename in sorted(glob.glob(f'{folder_to_images}/*jpeg')):
         img = cv2.imread(filename)
@@ -50,7 +54,7 @@ def timelapse(now):
         size = (width, height)
         img_array.append(img)
 
-    out = cv2.VideoWriter(f'{folder_to_timelapse}/{now}timelapse.avi', cv2.VideoWriter_fourcc(*'DIVX'), 7, size)
+    out = cv2.VideoWriter(f'{folder_to_timelapse}/{now}_{plant}_timelapse.avi', cv2.VideoWriter_fourcc(*'DIVX'), 7, size)
 
     for i in range(len(img_array)):
         out.write(img_array[i])
