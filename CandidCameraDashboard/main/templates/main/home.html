@@ -3,30 +3,105 @@
 {% block content %}
 	<div class="row">
 		<div class="col mt-2">
-			<div class="card" style="width: 18rem;">
+			<div class="card shadow" style="width: 18rem;">
 				<img src="{{ MEDIA_URL }}picamera.png" class="card-img-top" alt="picamera">
 				<div class="card-body">
 					<h5 class="card-title">Download photos</h5>
-					<p class="card-text">Download the files stored in Spaces in your computer</p>
+					<p class="card-text">Download the files stored in Spaces in your computer.</p>
 				</div>
 				<div class="card-body">
-					<a href="{% url 'main:download_photos' %}" class="card-link">Download</a>
+					<form action="{% url 'main:download_photos' %}" method="POST">
+						{% csrf_token %}
+						<div class="dropdown">
+							<a class="btn btn-light dropdown-toggle border border-secondary shadow" href="#" role="button" id="dropdownMenuLink"
+							   data-bs-toggle="dropdown" aria-expanded="false">
+								Download
+							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<li>
+									<button class="btn btn-link" type="submit" name="download"
+									        value="proud_boy">
+										Proud boy
+									</button>
+								</li>
+								<li>
+									<button class="btn btn-link" type="submit" name="download"
+									        value="resurrected_boy">
+										Resurrected boy
+									</button>
+								</li>
+							</ul>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 		<div class="col mt-2">
-			<div class="card dashboard-gif-card">
-				<img src="{{MEDIA_URL}}flower-timelapse.gif" class="card-img-top" alt="dandelion-timelapse" style="height: 248px">
+			<div class="card shadow dashboard-gif-card">
+				<img src="{{ MEDIA_URL }}flower-timelapse.gif" class="card-img-top" alt="dandelion-timelapse"
+				     style="height: 248px">
 				<div class="card-body">
 					<h5 class="card-title">Timelapse video</h5>
 					<p class="card-text">Create and download a timelapse video from the photos.
 						<br>
-					New video available every day after 12 am.</p>
+						New video available every day after 12 am.</p>
 				</div>
 				<div class="card-body">
-					<a href="{% url 'main:download_timelapse' %}" class="card-link">Download</a>
+					<div class="btn-group">
 
-					<a href="{% url 'main:video' %}" class="card-link">View in browser</a>
+						<form action="{% url 'main:download_timelapse' %}" method="POST">
+							{% csrf_token %}
+							<div class="dropdown">
+								<a class="me-2 btn btn-light dropdown-toggle border border-secondary shadow" href="#" role="button" id="dropdownMenuLink"
+								   data-bs-toggle="dropdown" aria-expanded="false">
+									Download
+								</a>
+
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li>
+										<button class="btn btn-link" type="submit" name="download"
+										        value="proud_boy">
+											Proud boy
+										</button>
+									</li>
+									<li>
+										<button class="btn btn-link" type="submit" name="download"
+										        value="resurrected_boy">
+											Resurrected boy
+										</button>
+									</li>
+								</ul>
+							</div>
+						</form>
+						<form action="{% url 'main:video' %}" method="POST">
+							{% csrf_token %}
+							<div class="dropdown">
+								<a class="ms-2 btn btn-light dropdown-toggle border border-secondary shadow" href="#" role="button" id="dropdownMenuLink"
+								   data-bs-toggle="dropdown" aria-expanded="false">
+									Preview
+								</a>
+
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li>
+										<button class="btn btn-link" type="submit" name="view"
+										        value="proud_boy">
+											Proud boy
+										</button>
+									</li>
+									<li>
+										<button class="btn btn-link" type="submit" name="view"
+										        value="resurrected_boy">
+											Resurrected boy
+										</button>
+									</li>
+								</ul>
+							</div>
+						</form>
+
+					</div>
+
+
 				</div>
 			</div>
 		</div>
